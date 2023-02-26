@@ -1,10 +1,18 @@
-import { signOut } from "firebase/auth";
+import {  } from "firebase/auth";
 import React from "react";
+import { useSelector } from "react-redux";
 
 import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const { pathname } = useLocation();
+
+  // fetch data from state 
+
+  const {user : {email}} = useSelector(state=> state.auth)
+
+
+
 
   return (
     <nav
@@ -22,6 +30,8 @@ const Navbar = () => {
           </Link>
         </li>
 
+{
+  !email? 
         <li>
           <Link
             className='border border-black px-2 py-1 rounded-full hover:border-primary hover:text-white hover:bg-primary hover:px-4 transition-all '
@@ -30,6 +40,19 @@ const Navbar = () => {
             Login
           </Link>
         </li>
+        :
+
+        <li>
+          <Link
+            className='border border-black px-2 py-1 rounded-full hover:border-primary hover:text-white hover:bg-primary hover:px-4 transition-all '
+            
+          >
+            Logout
+          </Link>
+        </li>
+
+        
+        }
       </ul>
     </nav>
   );
