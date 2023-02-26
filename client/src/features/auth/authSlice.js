@@ -46,18 +46,18 @@ const authSlice = createSlice({
         state.errMsg = action.error.message;
       })
     //   for login
-      .addCase(createUser.pending, (state) => {
+      .addCase(loginUser.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
         state.errMsg = "";
       })
-      .addCase(createUser.fulfilled, (state, { payload }) => {
+      .addCase(loginUser.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.user.email = payload;
         state.isError = false;
         state.errMsg = "";
       })
-      .addCase(createUser.rejected, (state,action) => {
+      .addCase(loginUser.rejected, (state,action) => {
         state.isLoading = false;
         state.isError = true;
         state.errMsg = action.error.message;
