@@ -11,7 +11,7 @@ const Navbar = () => {
 const dispatch = useDispatch()
   // fetch data from state 
 
-  const {user : {email}} = useSelector(state=> state.auth)
+  const {user : {email,role}} = useSelector(state=> state.auth)
 
 // handle logout
 
@@ -40,6 +40,33 @@ const dispatch = useDispatch()
             Jobs
           </Link>
         </li>
+
+        {/* dashboard button for login users */}
+
+        {
+
+          email&& role && (
+            <li>
+            <Link className='hover:text-primary' to='/dashboard'>
+              Dashboard
+            </Link>
+          </li>
+
+          )
+
+        }
+        
+{
+          email&& !role && (
+            <li>
+              <Link className="hover:text-primary" to="/register">
+                Get Started
+              </Link>
+            </li>)
+}
+
+
+        {/* login buttons */}
 
 {
   !email? 
