@@ -3,6 +3,8 @@ import { useForm, useWatch } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { FaChevronLeft } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { useRegisterMutation } from "../../features/auth/authApi";
+
 
 const EmployerRegistration = () => {
   const [countries, setCountries] = useState([]);
@@ -35,6 +37,7 @@ const EmployerRegistration = () => {
   ];
 
   const employeeRange = ["1 - 10", "11 - 50", "51 - 100", "Above 100"];
+  const [postData,{isLoading,isError}] = useRegisterMutation()
 
   useEffect(() => {
     fetch("https://restcountries.com/v3.1/all")
@@ -43,7 +46,7 @@ const EmployerRegistration = () => {
   }, []);
 
   const onSubmit = (data) => {
-    console.log(data);
+    postData({...data, role :'employer'})
   };
 
   return (
