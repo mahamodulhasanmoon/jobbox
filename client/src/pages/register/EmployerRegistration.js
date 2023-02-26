@@ -11,7 +11,11 @@ const EmployerRegistration = () => {
 
   const {user:{email} } = useSelector(state=> state.auth)
 
-  const { handleSubmit, register, control } = useForm();
+  const { handleSubmit, register, control } = useForm({
+    defaultValues:{
+      email
+    }
+  });
   const term = useWatch({ control, name: "term" });
   const navigate = useNavigate();
 
@@ -38,6 +42,7 @@ const EmployerRegistration = () => {
 
   const employeeRange = ["1 - 10", "11 - 50", "51 - 100", "Above 100"];
   const [postData,{isLoading,isError}] = useRegisterMutation()
+
 
   useEffect(() => {
     fetch("https://restcountries.com/v3.1/all")
@@ -80,7 +85,7 @@ const EmployerRegistration = () => {
             <label className='mb-2' htmlFor='email'>
               Email
             </label>
-            <input type='email' id='email' value={email} disabled {...register("email")} />
+            <input type='email' id='email' className="cursor-not-allowed" disabled value={email}   {...register("email")} />
           </div>
           <div className='flex flex-col w-full max-w-xs'>
             <h1 className='mb-3'>Gender</h1>
