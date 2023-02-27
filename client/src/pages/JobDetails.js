@@ -9,7 +9,7 @@ const JobDetails = () => {
   const {id} = useParams()
   const {data,isLoading,isError} = useGetJobByIdQuery(id)
  
-console.log(data)
+
 
 
   const {
