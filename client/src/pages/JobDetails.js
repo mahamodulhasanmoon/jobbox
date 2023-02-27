@@ -2,14 +2,19 @@ import React, { useEffect } from "react";
 
 import meeting from "../assets/meeting.jpg";
 import { BsArrowRightShort, BsArrowReturnRight } from "react-icons/bs";
-import { useParams } from "react-router-dom";
-import { useGetJobByIdQuery } from "../features/job/jobApi";
-import Loading from "../components/reusable/Loading";
+import { useNavigate, useParams } from "react-router-dom";
+import { useApplyMutation, useGetJobByIdQuery } from "../features/job/jobApi";
+import { useSelector } from "react-redux";
+import { toast } from "react-hot-toast";
+
 const JobDetails = () => {
+
+  const {user}= useSelector(state=> state.auth)
+const navigate = useNavigate()
   const {id} = useParams()
   const {data,isLoading,isError} = useGetJobByIdQuery(id)
  
-
+  const[ apply]= useApplyMutation()
 
 
   const {
@@ -28,9 +33,30 @@ const JobDetails = () => {
     _id,
   } = data?.data|| {};
 
-  if (isLoading) {
-    return <Loading/>
+const handleApply = ()=>{
+
+  if(user.role === 'employer'){
+    toast.error('you need to candidate Account')
+    return
   }
+
+  if(user.role === ''){
+    navigate('/register')
+    return
+  }
+
+  const data = {
+    user: user._id,
+    email: user.email,
+    jobId : _id,
+
+
+  }
+  apply(data)
+
+}
+
+
 
   return (
     <div className='pt-14 grid grid-cols-12 gap-5 container mx-auto'>
@@ -41,7 +67,7 @@ const JobDetails = () => {
         <div className='space-y-5'>
           <div className='flex justify-between items-center mt-5'>
             <h1 className='text-xl font-semibold text-primary'>{position}</h1>
-            <button className='btn'>Apply</button>
+            <button onClick={handleApply} className='btn'>Apply</button>
           </div>
           <div>
             <h1 className='text-primary text-lg font-medium mb-3'>Overview</h1>

@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 const JobCard = ({ jobData }) => {
   const navigate = useNavigate();
-  const { _id, position, companyName, location, employmentType } =
+  const { _id, position, companyName, location, employmentType ,applicants
+  } =
     jobData || {};
 
   return (
@@ -18,6 +19,12 @@ const JobCard = ({ jobData }) => {
             by{" "}
             <span className='font-semibold hover:text-primary cursor-pointer hover:underline transition-all'>
               {companyName}
+            </span>
+          </small>
+          <small className='text-primary/70 mx-5'>
+     
+            <span className='font-semibold hover:text-primary cursor-pointer hover:underline transition-all'>
+              {applicants.length} person applied
             </span>
           </small>
         </div>
