@@ -4,11 +4,14 @@ import { Toaster } from "react-hot-toast";
 import { RouterProvider } from "react-router-dom";
 import routes from "./routes/routes";
 import auth from "./firebase/firebase.config";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUser, loadingToggle, setUser } from "./features/auth/authSlice";
+import Loading from "./components/reusable/Loading";
 
 
 function App() {
+
+  const {isLoading} = useSelector(state=> state.auth)
 
   // to keep user login percestency
   const dispatch = useDispatch()
@@ -26,6 +29,9 @@ useEffect(()=>{
   })
 
 },[dispatch])
+if(isLoading){
+  return <Loading/>
+}
 
   return (
     <>
