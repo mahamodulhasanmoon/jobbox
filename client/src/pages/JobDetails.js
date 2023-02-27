@@ -14,7 +14,7 @@ const navigate = useNavigate()
   const {id} = useParams()
   const {data,isLoading,isError} = useGetJobByIdQuery(id)
  
-  const[ apply]= useApplyMutation()
+  const[applyJob ]= useApplyMutation()
 
 
   const {
@@ -30,10 +30,12 @@ const navigate = useNavigate()
     responsibilities,
     overview,
     queries,
+    applicants
+,
     _id,
   } = data?.data|| {};
 
-const handleApply = ()=>{
+const handleApply = (id)=>{
 
   if(user.role === 'employer'){
     toast.error('you need to candidate Account')
@@ -48,11 +50,11 @@ const handleApply = ()=>{
   const data = {
     user: user._id,
     email: user.email,
-    jobId : _id,
-
+    jobId : id,
 
   }
-  apply(data)
+  console.log(data)
+applyJob(data)
 
 }
 
@@ -67,7 +69,7 @@ const handleApply = ()=>{
         <div className='space-y-5'>
           <div className='flex justify-between items-center mt-5'>
             <h1 className='text-xl font-semibold text-primary'>{position}</h1>
-            <button onClick={handleApply} className='btn'>Apply</button>
+            <button onClick={()=>handleApply(_id)} className='btn'>Apply</button>
           </div>
           <div>
             <h1 className='text-primary text-lg font-medium mb-3'>Overview</h1>

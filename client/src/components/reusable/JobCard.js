@@ -24,7 +24,7 @@ const JobCard = ({ jobData }) => {
           <small className='text-primary/70 mx-5'>
      
             <span className='font-semibold hover:text-primary cursor-pointer hover:underline transition-all'>
-              {applicants.length} person applied
+              {applicants?.length} person applied
             </span>
           </small>
         </div>
